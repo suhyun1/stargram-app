@@ -27,7 +27,7 @@ const AuthButton = ({text, onPress}) => (
 
 );
 
-AuthButton.PropTypes = {
+AuthButton.propTypes = {
     text: PropTypes.string.isRequired,
     onPress: PropTypes.func.isRequired
 }
