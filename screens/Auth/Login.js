@@ -43,10 +43,10 @@ export default ({navigation}) => {
       } = await requestSecretMutation();
       if(requestSecret){
         Alert.alert("Check you email");
-        navigation.navigate("Confirm");
+        navigation.navigate("Confirm", {email: value});
       }else{
         Alert.alert("Account not found");
-        navigation.navigate("Signup");
+        navigation.navigate("Signup", { email: value });
       }
     }catch(e){
       console.log(e);
