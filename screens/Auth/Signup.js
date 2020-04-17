@@ -94,7 +94,7 @@ export default ({ navigation, route }) => {
       console.log(type);
       console.log(token);
       if(type === "success"){
-        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}`);
+        const response = await fetch(`https://graph.facebook.com/me?access_token=${token}&fields=id,last_name,first_name,email`);
         const {email, first_name, last_name} = await response.json();
         updateFormData(email, first_name, last_name);
         
