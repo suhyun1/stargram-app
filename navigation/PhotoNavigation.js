@@ -4,13 +4,16 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SelectPhoto from "../screens/Photo/SelectPhoto";
 import TakePhoto from "../screens/Photo/TakePhoto";
 import UploadPhoto from "../screens/Photo/UploadPhoto";
+import { stackStyles } from "./config";
 
 const TabNav = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
 
 const PhotoTabs = () => {
   return (
-    <TabNav.Navigator tabBarPosition="bottom">
+    <TabNav.Navigator 
+    
+    tabBarPosition="bottom">
       <TabNav.Screen name="SelectPhoto" component={SelectPhoto} />
       <TabNav.Screen name="TakePhoto" component={TakePhoto} />
     </TabNav.Navigator>
@@ -18,7 +21,13 @@ const PhotoTabs = () => {
 };
 
 export default () => (
-  <Stack.Navigator mode="modal" headerMode="none">
+  <Stack.Navigator 
+    screenOptions={{
+      headerStyle: {
+        ...stackStyles
+      }
+    }}
+    mode="modal" headerMode="none">
     <Stack.Screen name="Photo" component={PhotoTabs} />
     <Stack.Screen name="UploadPhoto" component={UploadPhoto} />
   </Stack.Navigator>
