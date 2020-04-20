@@ -32,6 +32,12 @@ export default function App() {
       });
       const client = new ApolloClient({
         cache,
+        request: async operation => { //요청시 매번 실행됨
+          const token = await AsyncStorage.getItem("jwt");
+          return operation.setContext({
+            headers: {Authorization: `Bearer ${token}`}
+          });
+        },
         ...apolloClientOptions
       });
       const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
