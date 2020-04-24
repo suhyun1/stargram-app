@@ -18,7 +18,9 @@ export default ({route}) => {
                     headerRight: () => {
                         return name === "Home" && <MessagesLink />
                     },
-                    headerTitle: () => <NavIcon name="logo-instagram" size={36} />,
+                    headerTitle: () => {
+                        return name === "Home" && <NavIcon name="logo-instagram" size={36} />
+                    },
                     headerTitleAlign: "center",
                     headerStyle: {
                         ...stackStyles
