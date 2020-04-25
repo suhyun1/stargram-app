@@ -1161,6 +1161,11 @@
     color "^3.1.2"
     react-native-iphone-x-helper "^1.2.1"
 
+"@react-navigation/compat@^5.1.9":
+  version "5.1.9"
+  resolved "https://registry.yarnpkg.com/@react-navigation/compat/-/compat-5.1.9.tgz#1256bb275ee548de7be2900741d9c1008dbabef7"
+  integrity sha512-rHhLXj7oQf7hsRdtpx0IuP10pyrxyd4Mm/WRWl5jdKafnD9kjmwjBbJBkmZ9IFHY/6raI8CajjmZI13Tjzy3Eg==
+
 "@react-navigation/core@^3.7.5":
   version "3.7.5"
   resolved "https://registry.yarnpkg.com/@react-navigation/core/-/core-3.7.5.tgz#2b8d464574edc7bcab8be226375d8227e9814ad2"
@@ -2536,7 +2541,7 @@ expo-error-recovery@~1.1.0:
   resolved "https://registry.yarnpkg.com/expo-error-recovery/-/expo-error-recovery-1.1.0.tgz#98b9de5400dbfd022d1631739f3bf5e7016565da"
   integrity sha512-33aRfPaXdAt0df1TL26JjM5qCAoEW8RAExjgMgunPcdQcf4sWiWFm3qYL8zrO/8DM4uUq4X2FCuPLHMlOYT/aw==
 
-expo-facebook@~8.1.0:
+expo-facebook@^8.1.0:
   version "8.1.0"
   resolved "https://registry.yarnpkg.com/expo-facebook/-/expo-facebook-8.1.0.tgz#e23e1532b7622971ec6f9a3175fa29f864a25f49"
   integrity sha512-tWr9zxHR/PLEoGm/2zJGzmRCMcgk/hKowV4bh7Xm/Diy34jlvYaWJEhiJT58v0QoSD/IXhUPYkCMFDL2hOGRFA==
