@@ -24,25 +24,13 @@ export default ({navigation, route}) => {
         }
     });
 
-    const refresh = async () => {
-        try {
-            setRefreshing(true);
-            await refetch();
-        } catch (e) {
-            console.log(e);
-        } finally {
-            setRefreshing(false);
-        }
-    };
+   
     return (
-        <ScrollView refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={refresh} />
-        }>
+        <ScrollView>
             {loading ? 
                 <Loader /> :
                 data && data.seeFullPost && <Post {...data.seeFullPost}/>
             }
-            
         </ScrollView>
     );
 };
