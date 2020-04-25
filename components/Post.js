@@ -8,6 +8,7 @@ import { gql } from "apollo-boost";
 import constants from "../constants";
 import style from "../style";
 import { useMutation } from "react-apollo-hooks";
+import { withNavigation } from "@react-navigation/compat";
 
 const LIKE_POST = gql`
     mutation toggleLike($postId: String!){
@@ -54,14 +55,15 @@ const CommentCount = styled.Text`
 `;
 
 const Post = ({
-id,
+  id,
   user,
   location,
   files = [],
   likeCount: likeCountProp,
   caption,
   comments = [],
-  isLiked: isLikedProp
+  isLiked: isLikedProp,
+  navigation
 }) => {
     const [isLiked, setIsLiked] = useState(isLikedProp);
     const [likeCount, setlikeCount] = useState(likeCountProp);
@@ -87,13 +89,19 @@ id,
   return (
     <Container>
       <Header>
-        <Touchable>
+        <Touchable onPress={() => 
+          navigation.push("UserDetail", {username: user.username})
+          }
+        >
           <Image
             style={{ height: 40, width: 40, borderRadius: 20 }}
             source={{ uri: user.avatar }}
           />
         </Touchable>
-        <Touchable>
+        <Touchable onPress={() =>
+          navigation.push("UserDetail", { username: user.username })
+          }
+        >
           <HeaderUserColumn>
             <Bold>{user.username}</Bold>
             <Location>{location}</Location>
@@ -189,4 +197,4 @@ Post.propTypes = {
     createdAt: PropTypes.string.isRequired
 };
 
-export default Post;
+export default withNavigation(Post);
