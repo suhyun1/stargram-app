@@ -5,6 +5,7 @@ import SelectPhoto from "../screens/Photo/SelectPhoto";
 import TakePhoto from "../screens/Photo/TakePhoto";
 import UploadPhoto from "../screens/Photo/UploadPhoto";
 import { stackStyles } from "./config";
+import style from "../style";
 
 const TabNav = createMaterialTopTabNavigator();
 const Stack = createStackNavigator();
@@ -12,23 +13,48 @@ const Stack = createStackNavigator();
 const PhotoTabs = () => {
   return (
     <TabNav.Navigator 
-    
-    tabBarPosition="bottom">
-      <TabNav.Screen name="SelectPhoto" component={SelectPhoto} />
-      <TabNav.Screen name="TakePhoto" component={TakePhoto} />
+      tabBarPosition="bottom"
+      tabBarOptions={{
+        indicatorStyle: {
+          backgroundColor: style.blackColor,
+        },
+        labelStyle: {
+          color:style.blackColor,
+          fontWeight: "600",
+        },
+        style: {
+          ...stackStyles
+        }
+      }}
+      >
+      <TabNav.Screen name="Select" component={SelectPhoto} />
+      <TabNav.Screen name="Take" component={TakePhoto} />
     </TabNav.Navigator>
   );
 };
 
 export default () => (
-  <Stack.Navigator 
+  <Stack.Navigator
     screenOptions={{
       headerStyle: {
-        ...stackStyles
-      }
+        ...stackStyles,
+      },
+      headerTitleAlign: "center",
     }}
-    mode="modal" headerMode="none">
-    <Stack.Screen name="Photo" component={PhotoTabs} />
-    <Stack.Screen name="UploadPhoto" component={UploadPhoto} />
+  >
+    <Stack.Screen
+      name="Photo"
+      component={PhotoTabs}
+      options={{
+        title: "Choose Photo",
+      }}
+    />
+    <Stack.Screen
+      name="UploadPhoto"
+      component={UploadPhoto}
+      options={{
+        title: null,
+      }}
+    />
   </Stack.Navigator>
 ); 
