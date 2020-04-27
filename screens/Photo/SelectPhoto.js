@@ -3,7 +3,7 @@ import styled from "styled-components";
 import * as Permissions from "expo-permissions"; 
 import * as MediaLibrary from "expo-media-library";
 import Loader from "../../components/Loader";
-import { Image, ScrollView } from "react-native";
+import { Image, ScrollView, TouchableOpacity } from "react-native";
 import constants from "../../constants";
 
 const View = styled.View`
@@ -18,9 +18,15 @@ export default ({ navigation }) => {
   const [hasPermission, setHasPermission] = useState(false);
   const [selected, setSelected] = useState();
   const [allPhotos, setAllPhotos] = useState();
+  const changeSelcted = (photo) => {  //사진 선택 시
+    setSelected(photo);
+
+  };
   const getPhotos = async() => {
     try{
-      const {assets} = await MediaLibrary.getAssetsAsync();
+      const { assets } = await MediaLibrary.getAssetsAsync({
+        sortBy: [[MediaLibrary.SortBy.creationTime, false]],
+      });
       const [firstPhoto] = assets;
       setSelected(firstPhoto);
       setAllPhotos(assets);
@@ -57,16 +63,26 @@ export default ({ navigation }) => {
                 style={{ width: constants.width, height: constants.height / 2 }}
                 source={{ uri: selected.uri }}
               />
-              <ScrollView contentContainerStyle={{flexDirection: "row", flexWrap:"wrap"}}>
+              <ScrollView
+                contentContainerStyle={{
+                  flexDirection: "row",
+                  flexWrap: "wrap",
+                }}
+              >
                 {allPhotos.map((photo) => (
-                  <Image
+                  <TouchableOpacity
                     key={photo.id}
-                    style={{
-                      width: constants.width / 3,
-                      height: constants.height / 6,
-                    }}
-                    source={{ uri: photo.uri }}
-                  />
+                    onPress={() => changeSelcted(photo)}
+                  >
+                    <Image
+                      style={{
+                        width: constants.width / 3,
+                        height: constants.height / 6,
+                        opacity: photo.id === selected.id ? 0.5 : 1
+                      }}
+                      source={{ uri: photo.uri }}
+                    />
+                  </TouchableOpacity>
                 ))}
               </ScrollView>
             </>
