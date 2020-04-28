@@ -12,23 +12,23 @@ const Stack = createStackNavigator();
 
 const PhotoTabs = () => {
   return (
-    <TabNav.Navigator 
+    <TabNav.Navigator
       tabBarPosition="bottom"
       tabBarOptions={{
         indicatorStyle: {
           backgroundColor: style.blackColor,
         },
         labelStyle: {
-          color:style.blackColor,
+          color: style.blackColor,
           fontWeight: "600",
         },
         style: {
-          ...stackStyles
-        }
+          ...stackStyles,
+        },
       }}
-      >
-      <TabNav.Screen name="Select" component={SelectPhoto} />
+    >
       <TabNav.Screen name="Take" component={TakePhoto} />
+      <TabNav.Screen name="Select" component={SelectPhoto} />
     </TabNav.Navigator>
   );
 };
