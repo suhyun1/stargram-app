@@ -5,22 +5,36 @@ import * as MediaLibrary from "expo-media-library";
 import Loader from "../../components/Loader";
 import { Image, ScrollView, TouchableOpacity } from "react-native";
 import constants from "../../constants";
+import style from "../../style";
 
 const View = styled.View`
-
   flex: 1;
 `;
 
-const Text = styled.Text``;
+const Button = styled.TouchableOpacity`
+  width: 100px;
+  height: 30px;
+  position: absolute;
+  right: 5px;
+  top: 15px;
+  background-color: ${style.blueColor};
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+`;
 
-export default ({ navigation }) => {
+const Text = styled.Text`
+  color: white;
+  font-weight: 600;
+`;
+
+export default ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [hasPermission, setHasPermission] = useState(false);
   const [selected, setSelected] = useState();
   const [allPhotos, setAllPhotos] = useState();
   const changeSelcted = (photo) => {  //사진 선택 시
     setSelected(photo);
-
   };
   const getPhotos = async() => {
     try{
@@ -48,6 +62,10 @@ export default ({ navigation }) => {
       hasPermission(false);
     }
   };
+  const handleSelcted = () => {
+    console.log(selected);
+    navigation.navigate("Upload", { photo: selected})
+  };
   useEffect(()=> {
     askPermission();
   },[]);
@@ -63,6 +81,9 @@ export default ({ navigation }) => {
                 style={{ width: constants.width, height: constants.height / 2 }}
                 source={{ uri: selected.uri }}
               />
+              <Button onPress={handleSelcted}>
+                <Text>Select Photo</Text>
+              </Button>
               <ScrollView
                 contentContainerStyle={{
                   flexDirection: "row",

@@ -50,10 +50,10 @@ export default () => (
       }}
     />
     <Stack.Screen
-      name="UploadPhoto"
+      name="Upload"
       component={UploadPhoto}
       options={{
-        title: null,
+        title: "Upload",
       }}
     />
   </Stack.Navigator>
