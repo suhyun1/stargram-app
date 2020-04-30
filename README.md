@@ -1,12 +1,13 @@
 # Stargram iOS & Android App
+> React Native 
 
 Screens: 
-- [ ] Home
-- [ ] Search
+- [x] Home
+- [x] Search
 - [ ] Upload
-- [ ] Notifications 
-- [ ] Profile
+- [ ] Notifications (좋아요 알림)
+- [x] Profile
 - [ ] Edit Profile 
-- [ ] Photo Detail
+- [x] Photo Detail
 - [ ] Photo Comments 
-- [ ] Photo Likes 
+- [x] Photo Likes 
