@@ -1,9 +1,24 @@
 import React, { useState } from "react";
-import { Image } from "react-native";
+import axios from "axios";
+import { Image, ActivityIndicator, Alert } from "react-native";
 import styled from "styled-components";
+import { gql } from "apollo-boost";
+import { useMutation } from "react-apollo-hooks";
 import useInput from "../../hooks/useInput";
 import style from "../../style";
 import constants from "../../constants";
+import apolloClientOptions from "../../apollo";
+import { FEED_QUERY } from "../Tab/Home";
+
+const UPLOAD = gql`
+  mutation upload($caption: String!, $files: [String!]!, $location: String){
+    upload(caption: $caption, files: $files, location: $location ){
+      id
+      caption
+      location
+    }
+  }
+`;
 
 const View = styled.View`
   flex: 1;
@@ -43,19 +58,62 @@ const Text = styled.Text`
 
 export default ({navigation, route}) => {
   const [loading, setIsLoading] = useState(false);
-  const [fileUrl, setFileUrl] = useState("");
+  const photo = route.params.photo;
   const captionInput = useInput("");
   const locationInput = useInput("");
-  const handleSubmit =() => {
+  const [uploadMutation] = useMutation(UPLOAD, {
+    refetchQueries: () => [{ query: FEED_QUERY }],
+  });
+  const handleSubmit = async() => {
     if (captionInput.value === "" || locationInput.value === "") {
       Alert.alert("All fields are required");
+    }
+    const formData = new FormData();
+    const name = photo.filename;
+    const [, type] = name.split(".");
+    formData.append("file", {
+      name,
+      // type: type.toLowerCase(),
+      type: "image/jpeg",
+      uri: photo.uri
+    });
+    try{
+      setIsLoading(true);
+      const {
+        data: { location },
+      } = await axios.post(
+        apolloClientOptions.uri.toString() + "/api/upload",
+        formData,
+        {
+          headers: {
+            "content-type": "multipart/form-data",
+          }
+        }
+      );
+      const {
+        data: { upload },
+      } = await uploadMutation({
+        variables: {
+          caption: captionInput.value,
+          files: [location],
+          location: locationInput.value,
+        },
+      }); //mutation 호출할 때 variable 추가
+      if(upload.id){
+        navigation.navigate("TabNavigation");
+      }
+    }catch(e){
+      Alert.alert("Cant upload", "Try later");
+      console.log(e);
+    }finally{
+      setIsLoading(false);
     }
   };
   return (
     <View>
       <Container>
         <Image
-          source={{ uri: route.params.photo.uri }}
+          source={{ uri: photo.uri }}
           style={{ height: 200, width: constants.width*2/3}}
         />
         <Form>

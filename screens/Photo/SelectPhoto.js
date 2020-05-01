@@ -63,7 +63,6 @@ export default ({navigation}) => {
     }
   };
   const handleSelcted = () => {
-    console.log(selected);
     navigation.navigate("Upload", { photo: selected})
   };
   useEffect(()=> {
